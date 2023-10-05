@@ -11,7 +11,6 @@ import {
   Button,
   Input,
   Textarea,
-  Select,
   VStack,
   useToast,
   FormControl,
@@ -51,6 +50,7 @@ const IssueForm = ({issue, onSuccess}: Props) => {
           isClosable: true,
         })
         onSuccess()
+        reset()
         onClose()
       } else {
         toast({
@@ -80,6 +80,7 @@ const IssueForm = ({issue, onSuccess}: Props) => {
           isClosable: true,
         })
         onSuccess()
+        reset()
         onClose()
       } else {
         toast({
@@ -92,14 +93,14 @@ const IssueForm = ({issue, onSuccess}: Props) => {
   }
 
   const onSubmit = (values: FormValues) => {
-    console.log(values)
     if (id) onUpdate(values)
     else onCreate(values)
   }
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
+    reset
   } = useForm<FormValues>({
     defaultValues: {
       title: issue?.title || '',
