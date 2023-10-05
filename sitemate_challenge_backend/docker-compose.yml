@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: sitemate-challenge
+    networks:
+      - sitemate
+
+  api:
+    platform: linux/x86_64
+    build:
+      dockerfile: ./Dockerfile
+    restart: always
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    networks:
+      - sitemate
+
+networks:
+  sitemate:
+    driver: bridge
